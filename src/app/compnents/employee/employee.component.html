@@ -1,0 +1,71 @@
+<div class="container mt-4">
+  <h2>Employee Management</h2>
+
+  <!-- Employee Form -->
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="mb-3">
+    <label>
+      Name:
+      <input type="text" formControlName="employee_Name" placeholder="Enter name" />
+    </label>
+    <br>
+
+    <label>
+      Hobbies:
+      <input type="text" formControlName="hobbies" placeholder="Enter hobbies" />
+    </label>
+    <br>
+
+    <label>
+      Age:
+      <input type="number" formControlName="age" placeholder="Enter age" />
+    </label>
+    <br>
+
+    <label>
+      Department:
+      <ng-select
+        [items]="departments"
+        bindLabel="name"
+        bindValue="id"
+        placeholder="Select Department"
+        formControlName="department_Id">
+      </ng-select>
+    </label>
+    <br><br>
+
+    <button type="submit">
+      {{ isEditMode ? 'Update Employee' : 'Add Employee' }}
+    </button>
+
+    <button type="button" (click)="resetForm()">Clear</button>
+  </form>
+
+  <hr>
+
+  <!-- Employee Table -->
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Hobbies</th>
+        <th>Age</th>
+        <th>Department Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees">
+        <td>{{ emp.employee_Id }}</td>
+        <td>{{ emp.employee_Name }}</td>
+        <td>{{ emp.hobbies }}</td>
+        <td>{{ emp.age }}</td>
+        <td>{{ emp.department_Name }}</td>
+        <td>
+          <button (click)="editEmployee(emp)">Edit</button>
+          <button (click)="deleteEmployee(emp.employee_Id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
